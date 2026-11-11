@@ -59,31 +59,31 @@ Instead of a one-shot animation that can expire while hidden, every rally SVG (`
 ## 4. Implementation Roadmap & File Checklist
 
 ### Phase 1: Deterministic SVG Scene Generator (`scripts/generate_assets.py`)
-- [ ] Create a single, dependency-free Python script (`scripts/generate_assets.py`) that computes exact 2D raycast bounce waypoints and outputs the ~16 self-contained `.svg` files into `assets/`:
+- [x] Create a single, dependency-free Python script (`scripts/generate_assets.py`) that computes exact 2D raycast bounce waypoints and outputs the ~16 self-contained `.svg` files into `assets/`:
   - `assets/marquee-dark.svg` & `assets/marquee-light.svg`: Dual-theme cabinet header for `<picture>` (`README.md:84-88`).
   - `assets/s{1..3}_r{1..3}_hit.svg`, `assets/s{1..3}_r{1..3}_bank.svg`, `assets/s{1..3}_miss.svg`, and `assets/victory.svg`: `680x420` animated CRT viewports (upgrading `custom-card.svg:1-62`) with embedded `@media (prefers-color-scheme: light/dark)` palettes, scanline overlays, HUD score/lives counters, multi-stop `@keyframes` ball paths, and brick shatter animations.
 
 ### Phase 2: Self-Contained Playable Profile (`README.md`)
-- [ ] **Arcade Cabinet Header & Marquee (refactoring `README.md:1-9`, `README.md:80-100`):**
+- [x] **Arcade Cabinet Header & Marquee (refactoring `README.md:1-9`, `README.md:80-100`):**
   - Use `<picture>` (`README.md:84-88`) with `assets/marquee-dark.svg` and `assets/marquee-light.svg` so the cabinet header genuinely adapts to GitHub Light and Dark themes.
-- [ ] **Cabinet Control Deck & Telemetry Table (refactoring `README.md:20-53`):**
+- [x] **Cabinet Control Deck & Telemetry Table (refactoring `README.md:20-53`):**
   - Use HTML `<table>` (`colspan`, `align="center"`, `README.md:20-53`) for the arcade frame.
   - Use `<ruby>` and `<rt>` (`README.md:39-43`) for telemetry badges (`<ruby>STAGE 01<rt>SECTOR</rt></ruby>`, `<ruby>00,800<rt>SCORE</rt></ruby>`, `<ruby>♥♥♥<rt>VAUS</rt></ruby>`).
   - Use `<del>`, `<ins>`, and `<mark>` (`README.md:34-38`, `README.md:44-48`) to track destroyed vs. active bricks per rally.
-- [ ] **3-Level In-Page `<details>` Game Tree (refactoring `README.md:57-76`):**
+- [x] **3-Level In-Page `<details>` Game Tree (refactoring `README.md:57-76`):**
   - Replace the external DoomMe links (`README.md:70-72`) with nested `<details>` & `<summary><kbd>...</kbd></summary>` controls for Stages 1, 2, and 3 so every rally, bank shot, miss recovery, and stage transition happens inline on the profile page.
-- [ ] **Integrated Telemetry Diffs, Alerts, Mermaid Map & 3D Trophy (refactoring `README.md:104-197`):**
+- [x] **Integrated Telemetry Diffs, Alerts, Mermaid Map & 3D Trophy (refactoring `README.md:104-197`):**
   - **`diff` Combat Logs (`README.md:189-193`):** Colorized rally readouts (`+ COMBO: 4x Neon Bricks Shattered (+400 PTS)`, `! RICOCHET: Gold Bumper Deflection`, `- BREACH: Ball Missed in Sector 4`).
   - **GFM Alerts (`README.md:182-185`):** Stage briefings (`[!NOTE]`), Vaus power-up notifications (`[!TIP] ENLARGED VAUS / LASER ACTIVE`), and miss warnings (`[!CAUTION]`).
   - **Tactical Sector Map (`mermaid`, `README.md:112-119`):** Visualizes the 3-stage campaign flow and deflection angles ($\theta_{\text{out}} = \theta_{\text{in}} + \Delta\theta_{\text{paddle}}$, replacing `README.md:195-197`).
   - **3D Vaus Spacecraft & Victory Trophy (`stl`, `README.md:145-176`):** Replaces the sample tetrahedron (`README.md:145-176`) with an interactive 3D ASCII `stl` model of the Vaus paddle inside the Stage 3 Victory Vault.
-- [ ] **Remove Legacy `custom-card.svg` (`custom-card.svg:1-62`):**
+- [x] **Remove Legacy `custom-card.svg` (`custom-card.svg:1-62`):**
   - Replace the standalone demo `custom-card.svg` once the new `assets/*.svg` arcade frames are wired into `README.md`.
 
 ---
 
 ## 5. Verification Checklist
 
-- [ ] **100% In-Profile Playability:** Verify that every `<details>` / `<summary>` path across Stages 1, 2, and 3 expands inline without any `<a href>` navigation away from `README.md`.
-- [ ] **SVG Animation & Sanitizer Compliance:** Confirm all `assets/*.svg` files declare valid `xmlns="http://www.w3.org/2000/svg"` and `xmlns="http://www.w3.org/1999/xhtml"` (`custom-card.svg:1-3`), contain zero `<script>` tags or external URLs, and loop their 4s rally animations smoothly in both light and dark modes.
-- [ ] **Size Budget Check:** Ensure `README.md` stays under 50 KB (well below GitHub's 512 KB truncation limit) and total repo assets stay clean and self-contained.
+- [x] **100% In-Profile Playability:** Verify that every `<details>` / `<summary>` path across Stages 1, 2, and 3 expands inline without any `<a href>` navigation away from `README.md`.
+- [x] **SVG Animation & Sanitizer Compliance:** Confirm all `assets/*.svg` files declare valid `xmlns="http://www.w3.org/2000/svg"` and `xmlns="http://www.w3.org/1999/xhtml"` (`custom-card.svg:1-3`), contain zero `<script>` tags or external URLs, and loop their 4s rally animations smoothly in both light and dark modes.
+- [x] **Size Budget Check:** Ensure `README.md` stays under 50 KB (well below GitHub's 512 KB truncation limit) and total repo assets stay clean and self-contained.
